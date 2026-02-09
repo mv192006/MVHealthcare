@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bill</title>
+    <style>
+      body {
+        font-family: DejaVu Sans, sans-serif;
+        font-size: 12px;
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .section {
+        margin-bottom: 10px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border: 1px solid #444;
+        padding: 6px;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h2>Clinic Bill</h2>
+      <p>Bill #{{ bill.id }} | {{ bill.created_at|date:"d M Y" }}</p>
+    </div>
+
+    <div class="section">
+      <strong>Patient:</strong> {{ bill.visit.patient }}<br />
+      <strong>Doctor:</strong> Dr. {{ bill.visit.doctor.username }}<br />
+      <strong>Visit Date:</strong> {{ bill.visit.visit_date }}
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Amount (INR)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Consultation Fee</td>
+          <td>{{ bill.visit.consultation_fee }}</td>
+        </tr>
+        <tr>
+          <td>Total</td>
+          <td>{{ bill.total_amount }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="section">
+      <strong>Status:</strong> {{ bill.get_payment_status_display }}<br />
+      <strong>Notes:</strong> {{ bill.notes|default:"-" }}
+    </div>
+  </body>
+</html>

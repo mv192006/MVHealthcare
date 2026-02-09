@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="h3">Dashboard</h1>
+  <a class="btn btn-primary" href="{% url 'patient_create' %}">Register Patient</a>
+</div>
+
+<div class="row">
+  <div class="col-lg-6 mb-4">
+    <div class="card">
+      <div class="card-header">Recent Patients</div>
+      <ul class="list-group list-group-flush">
+        {% for patient in patients %}
+        <li class="list-group-item d-flex justify-content-between">
+          <span>{{ patient }}</span>
+          <a href="{% url 'patient_detail' patient.id %}">View</a>
+        </li>
+        {% empty %}
+        <li class="list-group-item">No patients yet.</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="col-lg-6 mb-4">
+    <div class="card">
+      <div class="card-header">Recent Visits</div>
+      <ul class="list-group list-group-flush">
+        {% for visit in visits %}
+        <li class="list-group-item d-flex justify-content-between">
+          <span>{{ visit.patient }} - {{ visit.visit_date }}</span>
+          <a href="{% url 'visit_detail' visit.id %}">View</a>
+        </li>
+        {% empty %}
+        <li class="list-group-item">No visits yet.</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

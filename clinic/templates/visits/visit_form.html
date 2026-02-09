@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+  <div class="card-body">
+    <h1 class="h4">New OPD Visit for {{ patient }}</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn btn-primary" type="submit">Save Visit</button>
+      <a class="btn btn-link" href="{% url 'patient_detail' patient.id %}">Cancel</a>
+    </form>
+  </div>
+</div>
+{% endblock %}
